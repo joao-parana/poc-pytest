@@ -35,3 +35,16 @@ O Workflow padrão de desenvolvimento é seguir os passos:
 2. Implemente a funcionalidade na classe correspondente.
 3. Execute `python3 -m pytest -v` para verificar se o resultado dos testes mostrou-se adequado.
 4. Volte ao passo 1 e recomece novamente para uma nova funcionalidade.
+
+A estrutura de diretório inicial é essa:
+
+```text
+tree .
+.
+├── README.md
+├── mypkg
+│   ├── __init__.py
+│   └── mycode.py
+└── tests
+    └── test_mycode.py
+```
