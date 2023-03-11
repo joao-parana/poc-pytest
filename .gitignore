@@ -1,3 +1,4 @@
 .pytest_cache
 tests/__pycache__
 mypkg/__pycache__/
+.coverage
