@@ -19,6 +19,15 @@ def test_do_get_httpbin(mocker:MockerFixture):
         return_value={"message": "Hello, World!"}): 
         assert remoteAPIAccess.doGet(None) == EXPECTED
 
+""""
+Usamos a fixture mocker do pacote pytest-mock para substituir o resultado da 
+função requests.get() usada no script mypkg.simple_requests_app.do_get_google
+pelo objeto de resposta falso (fake) criado pela fixture amend_response definida
+no arquivo tests/conftest.py. Isso é feito usando o método mocker.patch(), 
+que recebe como argumentos o nome do objeto que queremos substituir 
+(no caso, mypkg.simple_requests_app.requests.get) e o objeto de resposta 
+falso (fake) que queremos usar na instrumentação do teste.
+"""
 @pytest.mark.smoke
 def test_do_get_google(mocker, amend_response):
     mocker.patch('mypkg.simple_requests_app.requests.get',

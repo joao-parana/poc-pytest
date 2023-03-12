@@ -2,7 +2,7 @@
 
 ## Procedimento usado para criar este repositório
 
-```bash
+``` bash
 mkdir ~/dev/python3
 cd ~/dev/python3
 pip3 install pytest
@@ -37,14 +37,14 @@ O resultado pode ser visto em https://github.com/joao-parana/poc-pytest.git
 
 O Workflow padrão de desenvolvimento é seguir os passos:
 
-1. altere o código de teste para testar um novo caso de uso, criando um método para tal na classe de teste.
-2. Implemente a funcionalidade na classe correspondente.
-3. Execute `python3 -m pytest -vv --durations=5  --cov . -m smoke  tests/test_mycode.py` e `python3 -m pytest -vv --durations=5  --cov . -m smoke  tests/test_simple_requests_app.py` para verificar se o resultado dos testes mostrou-se adequado e qual foi o percentual de cobertura de codigo testado.
-4. Volte ao passo 1 e recomece novamente para uma nova funcionalidade.
+1.  altere o código de teste para testar um novo caso de uso, criando um método para tal na classe de teste.
+2.  Implemente a funcionalidade na classe correspondente.
+3.  Execute `python3 -m pytest -vv --durations=5  --cov . -m smoke  tests/test_mycode.py` e `python3 -m pytest -vv --durations=5  --cov . -m smoke  tests/test_simple_requests_app.py` para verificar se o resultado dos testes mostrou-se adequado e qual foi o percentual de cobertura de codigo testado.
+4.  Volte ao passo 1 e recomece novamente para uma nova funcionalidade.
 
 A estrutura de diretório inicial é essa:
 
-```text
+``` text
 tree .
 .
 ├── README.md
@@ -65,7 +65,7 @@ O principal objetivo de criar testes unitários e prover uma instrumentação pa
 
 Em Python esta instrumentação pode ser criada, por exemplo, usando o método `setattr()` como no exemplo abaixo:
 
-```python
+``` python
 import my_module
 
 def my_mock_function():
@@ -74,10 +74,9 @@ def my_mock_function():
 setattr(my_module.MyClass, 'my_method', my_mock_function)
 ```
 
-Após a declaração do método `my_mock_function()` e da execução do método `setattr()` qualquer chamada ao método `my_method` da classe `my_module.MyClass` invocará na verdade o o método `my_mock_function()` da classe que implementa a instrumentação. 
+Após a declaração do método `my_mock_function()` e da execução do método `setattr()` qualquer chamada ao método `my_method` da classe `my_module.MyClass` invocará na verdade o o método `my_mock_function()` da classe que implementa a instrumentação.
 
 Felismente não é necessário usar esta técnica pois temos frameworks de teste em Python para nos ajudar nesta tarefa.
-
 
 ## Porque usar PyTest
 
@@ -93,11 +92,29 @@ Para criar este assessório que nos ajuda a desenvolver testes unitários usamos
 
 Uma `fixture` é um conjunto de objetos, dados ou configurações que são preparados antes da execução de um teste. Esses objetos, dados ou configurações são usados para estabelecer um ambiente consistente e controlado para que o teste possa ser executado de forma confiável e reproduzível. Existem diferentes tipos de fixtures que podem ser usados em testes unitários, dependendo do contexto e da linguagem de programação utilizada. Alguns exemplos comuns incluem:
 
-- Fixture de configuração: prepara o ambiente de teste configurando variáveis de ambiente, banco de dados, arquivos de configuração, etc.
-- Fixture de dados: cria ou carrega dados que serão utilizados no teste, como registros de banco de dados, arquivos de entrada, etc.
-- Fixture de objetos: cria objetos que serão utilizados no teste, como instâncias de classes ou bibliotecas de funções.
+-   Fixture de configuração: prepara o ambiente de teste configurando variáveis de ambiente, banco de dados, arquivos de configuração, etc.
+-   Fixture de dados: cria ou carrega dados que serão utilizados no teste, como registros de banco de dados, arquivos de entrada, etc.
+-   Fixture de objetos: cria objetos que serão utilizados no teste, como instâncias de classes ou bibliotecas de funções.
 
 As fixtures são importantes para garantir que os testes sejam executados de forma consistente e previsível, independentemente do ambiente de execução. Além disso, as fixtures permitem que os testes sejam escritos de forma modular e legível. Com `fixture` as configurações e dados necessários para cada teste podem ser definidos separadamente do código fonte da aplicação, facilitando a manutenção do código. Lembre-se que teste é apenas mais um ASPECTO de uma aplicação e deve ser independente desta, caracterizando por uma instrumentação a ser realizada na aplicação, para garantir a qualidade desta.
+
+### Exemplo de uso de fixture
+
+No exemplo abaixo, usamos a fixture `mocker` do pacote `pytest-mock` para substituir o resultado da chamada a função `requests.get()` usada no script `mypkg.simple_requests_app.do_get_google` pelo objeto de resposta falso (fake) criado pela fixture `amend_response` definida no arquivo `tests/conftest.py`.
+
+Isso é feito usando o método `mocker.patch()`, que recebe como argumentos o nome do objeto que queremos substituir (neste caso, `mypkg.simple_requests_app.requests.get`) e o objeto de resposta falso (fake) que queremos usar na instrumentação do teste.
+
+``` python
+@pytest.mark.smoke
+def test_do_get_google(mocker, amend_response):
+    mocker.patch('mypkg.simple_requests_app.requests.get',
+                 return_value=amend_response)
+    result = do_get_google()
+    EXPECTED = { 'message': 'Hello, World!'}
+    assert result.json() == EXPECTED
+```
+
+Esta é uma forma simples de usar `fixture` mas podemos usar também o `MonkeyPatch` que pode ser util em cenários mais complexos.
 
 ## Como usar o MonkeyPatch para *mockar* objetos complexos
 
@@ -105,10 +122,10 @@ Video explicando a implementação: https://youtu.be/PmDjzIzJVZk
 
 Veja alguns cenários em que o **MonkeyPatch** pode ser apropriado:
 
-- Quando você precisa substituir um objeto em um módulo importado que não é facilmente substituível por outro método, como um banco de dados ou API externa.
-- Quando você está testando código que depende do estado de tempo ou de outras variáveis do sistema que são difíceis de simular diretamente em um ambiente de teste.
+-   Quando você precisa substituir um objeto em um módulo importado que não é facilmente substituível por outro método, como um banco de dados ou API externa.
+-   Quando você está testando código que depende do estado de tempo ou de outras variáveis do sistema que são difíceis de simular diretamente em um ambiente de teste.
 
-Veja: https://docs.pytest.org/en/7.2.x/how-to/monkeypatch.html 
+Veja: https://docs.pytest.org/en/7.2.x/how-to/monkeypatch.html
 
 No exemplo implementado neste repositório, o método `push()` da classe `Stack` faz um `request` tipo `GET` para um serviço externo e o modulo `fixture` com `monkeypatch` é usado para **alterar a URL** para um endereço interno já que não é possível acessar o endereço externo real por estar em área protegida no cliente final.
 
