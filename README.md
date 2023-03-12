@@ -39,7 +39,7 @@ O Workflow padrão de desenvolvimento é seguir os passos:
 
 1. altere o código de teste para testar um novo caso de uso, criando um método para tal na classe de teste.
 2. Implemente a funcionalidade na classe correspondente.
-3. Execute `python3 -m pytest -vv --durations=5  --cov . -m smoke  tests/test_mycode.py` para verificar se o resultado dos testes mostrou-se adequado e qual foi o percentual de cobertura de codigo testado.
+3. Execute `python3 -m pytest -vv --durations=5  --cov . -m smoke  tests/test_mycode.py` e `python3 -m pytest -vv --durations=5  --cov . -m smoke  tests/test_simple_requests_app.py` para verificar se o resultado dos testes mostrou-se adequado e qual foi o percentual de cobertura de codigo testado.
 4. Volte ao passo 1 e recomece novamente para uma nova funcionalidade.
 
 A estrutura de diretório inicial é essa:
