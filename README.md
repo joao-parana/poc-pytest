@@ -7,6 +7,7 @@ mkdir ~/dev/python3
 cd ~/dev/python3
 pip3 install pytest
 pip3 install pytest-cov
+pip3 install pytest-mock
 touch README.md
 mkdir tests
 mkdir mypkg
