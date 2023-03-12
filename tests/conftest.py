@@ -1,29 +1,32 @@
 # tests/conftest.py
 
+# Se você deseja que a biblioteca “requests” execute solicitações http 
+# de forma controlada e instrumentadaem todos os seus testes, você pode 
+# usar usar esta implementação conftest.py que define @pytest.fixture(autouse=True)
+
 import pytest
 import requests
 from requests.models import Response
-from mock_get_requests import MockMyRequest
+from mock_get_and_post_requests import MockMyRequest
 
 mockURL = "http://localhost:8083/storage"
-
 
 @pytest.fixture(autouse=True)
 def amend_requests_get(monkeypatch):
 
-    def patched_get(*args, **kwargs):
+    def patched_get(*args, **kwargs) -> Response:
         # raise RuntimeError("Bad! No network for you!")
         # Use args e kwargs para ajustar os casos de uso de teste
-        return MockMyRequest(mockURL)
+        return MockMyRequest(mockURL).getMock()
 
     monkeypatch.setattr(requests, "get", patched_get)
 
 @pytest.fixture(autouse=True)
 def amend_requests_post(monkeypatch):
 
-    def patched_post(*args, **kwargs):
+    def patched_post(*args, **kwargs) -> Response:
         # raise RuntimeError("Bad! No network for you!")
         # Use args e kwargs para ajustar os casos de uso de teste
-        return MockMyRequest(mockURL, None)
+        return MockMyRequest(mockURL, None).getMock()
 
     monkeypatch.setattr(requests, "post", patched_post)

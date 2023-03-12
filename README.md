@@ -100,8 +100,9 @@ Uma `fixture` é um conjunto de objetos, dados ou configurações que são prepa
 
 As fixtures são importantes para garantir que os testes sejam executados de forma consistente e previsível, independentemente do ambiente de execução. Além disso, as fixtures permitem que os testes sejam escritos de forma modular e legível. Com `fixture` as configurações e dados necessários para cada teste podem ser definidos separadamente do código fonte da aplicação, facilitando a manutenção do código. Lembre-se que teste é apenas mais um ASPECTO de uma aplicação e deve ser independente desta, caracterizando por uma instrumentação a ser realizada na aplicação, para garantir a qualidade desta.
 
-
 ## Como usar o MonkeyPatch para *mockar* objetos complexos
+
+Video explicando a implementação: https://youtu.be/PmDjzIzJVZk
 
 Veja alguns cenários em que o **MonkeyPatch** pode ser apropriado:
 

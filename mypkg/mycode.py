@@ -12,7 +12,7 @@ class Stack:
     def push(self, item):
         PARAMS = {'item':item}
         self._storage.append(item)
-        r = requests.get(url = self._URL, params = PARAMS)
+        r: Response = requests.get(url = self._URL, params = PARAMS)
         # extracting data in json format
         data = r.json()
         self.write_for_debug(str(data))
