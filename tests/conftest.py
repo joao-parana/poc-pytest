@@ -32,11 +32,3 @@ def amend_requests_post(monkeypatch):
 
     monkeypatch.setattr(requests, "post", patched_post)
 
-"""
-@pytest.fixture(moker:MockerFixture)
-def amend_requests_x(moker:MockerFixture):
-    fake_response = Response()
-    fake_response.status_code = 200
-    fake_response.json = mocker.Mock(return_value={"message": "Hello, World!"})
-    print(fake_response.json)
-"""
