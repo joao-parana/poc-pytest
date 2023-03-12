@@ -87,8 +87,6 @@ Uma convenção comum é colocar todos os seus testes em um diretório `tests` d
 
 O padrão básico para uso do `pytest` para teste unitário é configurar um acessório que receberá alguns parâmetros e os usará para gerar as entradas de teste e as saídas esperadas desejadas. Por exemplo no caso de testar o método `sum()` de uma calculadora o acessório deverá criar entradas como (2, 2) e saida (4), por exemplo. O seguedo e saber quais as configurações mínimas de teste que devemos gerar no assessório para garantir a qualidade do código.
 
-O padrão básico para uso do `pytest` para teste unitário é configurar um acessório que receberá alguns parâmetros e os usará para gerar as entradas de teste e as saídas esperadas desejadas. Por exemplo no caso de testar o método `sum()` de uma calculadora o acessório deverá criar entradas como (2, 2) e saida (4), por exemplo. O seguedo e saber quais as configurações mínimas de teste que devemos gerar no assessório para garantir a qualidade do código.
-
 Para criar este assessório que nos ajuda a desenvolver testes unitários usamos o que se chama `fixture`.
 
 ### Usando fixture
