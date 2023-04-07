@@ -21,7 +21,7 @@ def amend_requests_get(monkeypatch):
 
     monkeypatch.setattr(requests, "get", patched_get)
 
-@pytest.fixture(autouse=True)
+@pytest.fixture(autouse=False)
 def amend_requests_post(monkeypatch):
     def patched_post(*args, **kwargs) -> Response:
         # raise RuntimeError("Bad! No network for you!")

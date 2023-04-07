@@ -1,13 +1,43 @@
 # poc-pytest
 
+## Testando upload de arquivo
+
+Em um Teminal execute 
+
+```bash
+pip3 install fastapi
+pip3 install python-multipart
+python3 rest-server.py
+```
+
+Isso inicia o REST Server que usa FastAPI.
+
+Em outro Terminal execute
+
+```bash
+python3 -m pytest -vv -m smoke  tests/test_upload.py
+ls -lAt uploaded/
+```
+
+Isso executa o teste unitário que faz o Upload. 
+
+Você verá o arquivo `FortiClientVPNOnlineInstaller.exe` que foi `uploaded` 
+usando a API `requests` no programa de teste `tests/test_upload.py`.
+
+Voce também pode fazer outos testes interativos usando OpenAPI/Swagger UI 
+na URL: http://127.0.0.1:8305/docs como entrypoint para a submissão de requests além de documentar a API.
+
 ## Procedimento usado para criar este repositório
 
-``` bash
+```bash
 mkdir ~/dev/python3
 cd ~/dev/python3
+pip3 install fastapi
+pip3 install python-multipart
 pip3 install pytest
 pip3 install pytest-cov
 pip3 install pytest-mock
+
 touch README.md
 mkdir tests
 mkdir mypkg
