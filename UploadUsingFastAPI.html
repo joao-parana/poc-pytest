@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Upload de arquivo usando FastAPI REST Server</title>
+</head>
+<body>
+  <h1>Upload de arquivo com FastAPI</h1>
+  <form
+      action="http://localhost:8305/uploadfile/" 
+      method="post" 
+      enctype="multipart/form-data"
+      >
+      <label for="file">Selecione um arquivo para fazer o UPLOAD:</label><br>
+      <input type="file" id="file" name="file"><br>
+      <input type="submit" value="Enviar Arquivo">
+	</form>
+</body>
+</html>
