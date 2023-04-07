@@ -27,6 +27,26 @@ usando a API `requests` no programa de teste `tests/test_upload.py`.
 Voce também pode fazer outos testes interativos usando OpenAPI/Swagger UI 
 na URL: http://127.0.0.1:8305/docs como entrypoint para a submissão de requests além de documentar a API.
 
+Outra forma de testar é usando uma página HTML simples. Para isso execute:
+
+```bash
+# Para não prender o terminal, termine a linha com o caracter &
+python -m http.server 8012 &
+python3 rest-server.py
+```
+
+Agora abra no Browser a página http://localhost:8305/uploadfile/ 
+
+Basta escolher algum arquivo binário ou de texto para fazer o Upload. 
+
+Observe as mensagens da App feita com FastAPI no terminal e a saida em JSON no browser.
+
+Confira também o diretório `uploaded` onde a aplicação salva o arquivo.
+
+```bash
+ls -lA uploaded/
+```
+
 ## Procedimento usado para criar este repositório
 
 ```bash
