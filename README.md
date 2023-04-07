@@ -35,13 +35,15 @@ python -m http.server 8012 &
 python3 rest-server.py
 ```
 
-Agora abra no Browser a página http://localhost:8305/uploadfile/ 
+Agora abra no Browser a página http://127.0.0.1:8012/UploadUsingFastAPI.html 
 
 Basta escolher algum arquivo binário ou de texto para fazer o Upload. 
 
 Observe as mensagens da App feita com FastAPI no terminal e a saida em JSON no browser.
 
 Confira também o diretório `uploaded` onde a aplicação salva o arquivo.
+
+**OBS:** A pagina HTML `UploadUsingFastAPI.html` é bastante simples e não integra nenhum tratamento de erro mais sofisticado em JavaScript, apenas uns casos de uso triviais. Serve apenas como referência para uso em alguma implementação mais completa. Veja também que é importante usar o middleware CORSMiddleware no lado do servidor FastAPI para gerar os Headers para autorização de acesso cross-origin e enviar ao cliente (browser).
 
 ```bash
 ls -lA uploaded/

@@ -1,8 +1,36 @@
 import shutil
 
 from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# Configuração do CORS
+origins = [
+	"http://localhost",
+	"http://localhost:8012",
+	"http://localhost:3000",
+	"http://127.0.0.1",
+	"http://127.0.0.1:8012",
+	"http://127.0.0.1:3000"
+]
+
+print('Configurando CORS para origens:', origins, '...')
+app.add_middleware(
+	CORSMiddleware,
+	allow_origins=origins,
+	allow_credentials=True,
+	allow_methods=["*"],
+	allow_headers=["*"],
+)
+
+"""
+Rota raiz para testar a conexão usando método fetch() do JavaScript no cliente.
+Veja o método pingServer() no arquivo UploadUsingFastAPI.html.
+"""
+@app.get("/")
+async def root():
+	return {"message": "pong"}
 
 """Upload de arquivos
 Definimos uma rota /uploadfile/ que permite o envio de um arquivo usando o método POST. 
